@@ -8,5 +8,5 @@ open https://www.tentree.ca/collections/mens-shorts --html --hashtml
 || rename group.0._html.innerText product
 || rename group.1._html.innerText price
 || sort group.0._sequence
-|| addcolumn time $TIMESTAMP$
+|| addcolumn time $TIMESTAMP.ISO$
 || table product price time
