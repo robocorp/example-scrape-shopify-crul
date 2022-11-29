@@ -1,0 +1,12 @@
+open https://www.tentree.ca/collections/mens-shorts --html --hashtml
+|| filter "(attributes.class == 'justify-between product-attr-container mt-2 relative')"
+|| sequence
+|| html innerHTML
+|| filter "(_html.nodeName == 'A') or (_html.attributes.class == 'text-discount-price')"
+|| table _html.innerText outerHTMLHash _sequence
+|| groupBy outerHTMLHash
+|| rename group.0._html.innerText product
+|| rename group.1._html.innerText price
+|| sort group.0._sequence
+|| addcolumn time $TIMESTAMP$
+|| table product price time
