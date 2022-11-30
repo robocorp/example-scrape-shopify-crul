@@ -11,7 +11,7 @@ Task Setup    Authorize Crul
 
 *** Variables ***
 ${QUERY_FILE}            crul-query.txt
-${RESULT_FILE}           scrape_results.xlsx
+${RESULT_FILE}           output/scrape_results.xlsx
 ${SHEET}                 Results
 
 
