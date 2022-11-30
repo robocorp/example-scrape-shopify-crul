@@ -3,6 +3,11 @@
 We found this new really cool tool [Crul](https://www.crul.com/), and wanted to put it in use! While it can handle data from APIs as well, in this case we are scraping product name and price data from a e-commerce site that runs on [Shopify](https://www.shopify.com/), and store it to an Excel file with a timestamp.
 
 > This might not work out of the box with ANY Shopify store, but go ahead and try. It's easy to edit the query.
+## What you will learn with this example
+
+- How to invoke Crul queries from a robot
+- How to extend Robot Framework robot with Python class
+- How to write data to a locally stored Excel
 
 ## Prerequisites
 
