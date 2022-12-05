@@ -40,10 +40,7 @@ Save to sheet
         Create Workbook    ${RESULT_FILE}
     END
 
-    FOR    ${row}    IN    @{data}
-        Append Rows To Worksheet    ${row}  header=${TRUE}
-    END
-
+    Append Rows To Worksheet    ${data}  header=${TRUE}
     Save Workbook
 
 Authorize Crul
