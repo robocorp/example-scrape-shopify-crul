@@ -28,7 +28,8 @@ Below is query that included as an example in the `crul-query.txt` file of this 
 5. Filters the page data to only include elements matching the filter expression.
 6. Include only relevant columns.
 7. Groups page elements by the parent hash.
-8. Renames columns
+8. Renames column
+9. Renames column
 10. Sorts according to the previously added sequence number to preserve the order of elements as they appear on the page.
 11. Adds a timestamp to each row.
 12. Include only relevant in the final set of results.
