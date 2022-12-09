@@ -22,64 +22,30 @@ To get a better idea of how a Crul query works in general, check out the [docume
 Below is query that included as an example in the `crul-query.txt` file of this robot. This query has been broken up by stage and documented. It's a verbose explanation as this could be your first time seeing a Crul query, but reach out to [Crul](https://crulinc.slack.com/) any time and we would love to answer any questions or help you write your own queries!
 
 1. Opens the provided URL, renders the page, and transforms into a tabular structure which includes the html, and hashes of the html for future grouping.
-```
-open https://www.tentree.ca/collections/mens-shorts --html --hashtml
-```
 2. Filters the page data to only include elements matching the filter expression.
-```
-|| filter "(attributes.class == 'justify-between product-attr-container mt-2 relative')"
-```
 3. Adds a _sequence column to each row containing the row number.
-```
-|| sequence
-```
 4. Processes the element HTML into a row for each of its children.
-```
-|| html innerHTML
-```
 5. Filters the page data to only include elements matching the filter expression.
-```
-|| filter "(_html.nodeName == 'A') or (_html.attributes.class == 'text-discount-price')"
-```
 6. Include only relevant columns.
-```
-|| table _html.innerText outerHTMLHash _sequence
-```
 7. Groups page elements by the parent hash.
-```
-|| groupBy outerHTMLHash
-```
 8. Renames columns
-```
-|| rename group.0._html.innerText product
-|| rename group.1._html.innerText price
-```
-9. Sorts according to the previously added sequence number to preserve the order of elements as they appear on the page.
-```
-|| sort group.0._sequence
-```
-10. Adds a timestamp to each row.
-```
-|| addcolumn time $TIMESTAMP.ISO$
-```
-11. Include only relevant in the final set of results.
-```
-|| table product price time
-```
+10. Sorts according to the previously added sequence number to preserve the order of elements as they appear on the page.
+11. Adds a timestamp to each row.
+12. Include only relevant in the final set of results.
 
 ```
-open https://www.tentree.ca/collections/mens-shorts --html --hashtml
-|| filter "(attributes.class == 'justify-between product-attr-container mt-2 relative')"
-|| sequence
-|| html innerHTML
-|| filter "(_html.nodeName == 'A') or (_html.attributes.class == 'text-discount-price')"
-|| table _html.innerText outerHTMLHash _sequence
-|| groupBy outerHTMLHash
-|| rename group.0._html.innerText product
-|| rename group.1._html.innerText price
-|| sort group.0._sequence
-|| addcolumn time $TIMESTAMP.ISO$
-|| table product price time
+1  open https://www.tentree.ca/collections/mens-shorts --html --hashtml
+2  || filter "(attributes.class == 'justify-between product-attr-container mt-2 relative')"
+3  || sequence
+4  || html innerHTML
+5  || filter "(_html.nodeName == 'A') or (_html.attributes.class == 'text-discount-price')"
+6  || table _html.innerText outerHTMLHash _sequence
+7  || groupBy outerHTMLHash
+8  || rename group.0._html.innerText product
+9  || rename group.1._html.innerText price
+10 || sort group.0._sequence
+11 || addcolumn time $TIMESTAMP.ISO$
+12 || table product price time
 ```
 
 ## Robot explained
