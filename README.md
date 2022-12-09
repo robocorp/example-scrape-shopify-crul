@@ -19,7 +19,7 @@ We found this new really cool tool [Crul](https://www.crul.com/), and wanted to 
 
 To get a better idea of how a Crul query works in general, check out the [documentation](https://www.crul.com/docs/introduction) and [quickstart](https://www.crul.com/quickstart)!
 
-Below is query that included as an example in the `crul-query.txt` file of this robot. This query has been broken up by stage and documented. It's a verbose explanation as this could be your first time seeing a Crul query, but reach out to [us](https://crulinc.slack.com/) any time and we would love to answer any questions or help you write your own queries!
+Below is query that included as an example in the `crul-query.txt` file of this robot. This query has been broken up by stage and documented. It's a verbose explanation as this could be your first time seeing a Crul query, but reach out to [Crul](https://crulinc.slack.com/) any time and we would love to answer any questions or help you write your own queries!
 
 1. Opens the provided URL, renders the page, and transforms into a tabular structure which includes the html, and hashes of the html for future grouping.
 ```
