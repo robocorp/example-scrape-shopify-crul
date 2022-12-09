@@ -21,51 +21,48 @@ To get a better idea of how a Crul query works in general, check out the [docume
 
 Below is query that included as an example in the `crul-query.txt` file of this robot. This query has been broken up by stage and documented. It's a verbose explanation as this could be your first time seeing a Crul query, but reach out to [us](https://crulinc.slack.com/) any time and we would love to answer any questions or help you write your own queries!
 
-1.) Opens the provided URL, renders the page, and transforms into a tabular structure which includes the html, and hashes of the html for future grouping.
+1. Opens the provided URL, renders the page, and transforms into a tabular structure which includes the html, and hashes of the html for future grouping.
 ```
 open https://www.tentree.ca/collections/mens-shorts --html --hashtml
 ```
-2.) Filters the page data to only include elements matching the filter expression.
+2. Filters the page data to only include elements matching the filter expression.
 ```
 || filter "(attributes.class == 'justify-between product-attr-container mt-2 relative')"
 ```
-3.) Adds a _sequence column to each row containing the row number.
+3. Adds a _sequence column to each row containing the row number.
 ```
 || sequence
 ```
-4.) Processes the element HTML into a row for each of its children.
+4. Processes the element HTML into a row for each of its children.
 ```
 || html innerHTML
 ```
-5.) Filters the page data to only include elements matching the filter expression.
+5. Filters the page data to only include elements matching the filter expression.
 ```
 || filter "(_html.nodeName == 'A') or (_html.attributes.class == 'text-discount-price')"
 ```
-6.) Include only relevant columns.
+6. Include only relevant columns.
 ```
 || table _html.innerText outerHTMLHash _sequence
 ```
-7.) Groups page elements by the parent hash.
+7. Groups page elements by the parent hash.
 ```
 || groupBy outerHTMLHash
 ```
-8.) Renames a column.
+8. Renames columns
 ```
 || rename group.0._html.innerText product
-```
-9.) Renames a column.
-```
 || rename group.1._html.innerText price
 ```
-10.) Sorts according to the previously added sequence number to preserve the order of elements as they appear on the page.
+9. Sorts according to the previously added sequence number to preserve the order of elements as they appear on the page.
 ```
 || sort group.0._sequence
 ```
-11.) Adds a timestamp to each row.
+10. Adds a timestamp to each row.
 ```
 || addcolumn time $TIMESTAMP.ISO$
 ```
-12.) Include only relevant in the final set of results.
+11. Include only relevant in the final set of results.
 ```
 || table product price time
 ```
