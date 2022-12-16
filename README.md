@@ -13,13 +13,13 @@ We found this new really cool tool [Crul](https://www.crul.com/), and wanted to 
 ## Prerequisites
 
 - Get a hosted account and credentials from [Crul](https://www.crul.com/). Try your luck in their [Slack](https://crulinc.slack.com/).
-- Set up a Vault in your Robocorp Control Room with name `Crul`and have one key called `apikey` that has your Crul API key in this format: `crul [KEY-HERE-IT-IS-LONG]`.
+- Set up a Vault in your [Robocorp Control Room](https://cloud.robocorp.com) with name `Crul` and have one key called `apikey` that has your Crul API key in this format: `crul [KEY-HERE-IT-IS-LONG]`.
 
 ## Crul query explained
 
 To get a better idea of how a Crul query works in general, check out the [documentation](https://www.crul.com/docs/introduction) and [quickstart](https://www.crul.com/quickstart)!
 
-Below is query that included as an example in the `crul-query.txt` file of this robot. This query has been broken up by stage and documented. It's a verbose explanation as this could be your first time seeing a Crul query, but reach out to [us](https://crulinc.slack.com/) any time and we would love to answer any questions or help you write your own queries!
+Below is query that included as an example in the `crul-query.txt` file of this robot. This query has been broken up by stage and documented. It's a verbose explanation as this could be your first time seeing a Crul query, but reach out to [Crul](https://crulinc.slack.com/) any time and we would love to answer any questions or help you write your own queries!
 
 1.) Opens the provided URL, renders the page, and transforms into a tabular structure which includes the html, and hashes of the html for future grouping.
 ```
@@ -74,7 +74,7 @@ open https://www.tentree.ca/collections/mens-shorts --html --hashtml
 || table product price time
 ```
 
-Here is the full crul query.
+Here is the full Crul query.
 
 ```
 open https://www.tentree.ca/collections/mens-shorts --html --hashtml
