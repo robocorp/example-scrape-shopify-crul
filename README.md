@@ -2,12 +2,12 @@
 
 We found this new really cool tool [Crul](https://www.crul.com/), and wanted to put it in use! While it can handle data from APIs as well, in this case we are scraping product name and price data from a e-commerce site that runs on [Shopify](https://www.shopify.com/), and store it to an Excel file with a timestamp.
 
-> This might not work out of the box with ANY Shopify store, but go ahead and try. It's easy to edit the query.
+> This won't work out of the box with ANY Shopify store, but go ahead and try. It's easy to edit the query. The main differences between Shopify stores will be in the filter stages which specify the product listings.
 
 ## Prerequisites
 
 - Get a hosted account and credentials from [Crul](https://www.crul.com/). Try your luck in their [Slack](https://crulinc.slack.com/).
-- Set up a Vault in your Robocorp Control Room with name `Crul`and have one key called `apikey` that has your Crul API key in this format: `crul [KEYHERE-IT-IS-LONG]`.
+- Set up a Vault in your Robocorp Control Room with name `Crul`and have one key called `apikey` that has your Crul API key in this format: `crul [KEY-HERE-IT-IS-LONG]`.
 
 ## Crul query explained
 
@@ -35,31 +35,35 @@ open https://www.tentree.ca/collections/mens-shorts --html --hashtml
 ```
 || filter "(_html.nodeName == 'A') or (_html.attributes.class == 'text-discount-price')"
 ```
-6.) Include only relevant columns.
+6.) This stage excludes any row containing the value “line-through” in the _html.innerHTML. The data set contains both the regular price and the sale price, so this stage will remove the regular price entry.
+```
+|| excludes _html.innerHTML "line-through"
+```
+7.) Include only relevant columns.
 ```
 || table _html.innerText outerHTMLHash _sequence
 ```
-7.) Groups page elements by the parent hash.
+8.) This stage groups page elements by the parent hash calculated per element in the first stage of this query.
 ```
 || groupBy outerHTMLHash
 ```
-8.) Renames a column.
-```
-|| rename group.0._html.innerText product
-```
 9.) Renames a column.
 ```
-|| rename group.1._html.innerText price
+|| rename _group.0._html.innerText product
 ```
-10.) Sorts according to the previously added sequence number to preserve the order of elements as they appear on the page.
+10.) Renames a column.
 ```
-|| sort group.0._sequence
+|| rename _group.1._html.innerText price
 ```
-11.) Adds a timestamp to each row.
+11.) Sorts according to the previously added sequence number to preserve the order of elements as they appear on the page.
+```
+|| sort _group.0._sequence --order "ascending"
+```
+12.) Adds a timestamp column with the current ISO timestamp to each row.
 ```
 || addcolumn time $TIMESTAMP.ISO$
 ```
-12.) Include only relevant in the final set of results.
+13.) Include only relevant columns in the final set of results.
 ```
 || table product price time
 ```
