@@ -6,12 +6,12 @@ Library       DateTime
 Library       RPA.Robocorp.Vault
 Library       RPA.Tables
 Library       RPA.JSON
-Library    RPA.Excel.Files
+Library       RPA.Excel.Files
 Task Setup    Authorize Crul
 
 *** Variables ***
 ${QUERY_FILE}            crul-query.txt
-${RESULT_FILE}           scrape_results.xlsx
+${RESULT_FILE}           output/scrape_results.xlsx
 ${SHEET}                 Results
 
 
@@ -40,10 +40,7 @@ Save to sheet
         Create Workbook    ${RESULT_FILE}
     END
 
-    FOR    ${row}    IN    @{data}
-        Append Rows To Worksheet    ${row}  header=${TRUE}
-    END
-
+    Append Rows To Worksheet    ${data}  header=${TRUE}
     Save Workbook
 
 Authorize Crul
